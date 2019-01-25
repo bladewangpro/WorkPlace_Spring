@@ -1,0 +1,617 @@
+#The advantage of Linux:
+Lower risk; high quality; low cost; clearer
+
+#open source permission protocol:
+copy free; broadcasting free; service charge; modify free; ---GNU GPL(GNU General Public License)
+
+If the republication of the software has source code, then the source code must follow the BSD License.
+If the republication of the software just has the binaray program, then u need declare that you have followed BSD protocol in relevent documents.
+you are not allowed promote your software by using original software name, authors and institute name.
+
+Apache permission protocol:
+The user can change the code and enjoy the right to republish the changed edition. 
+
+MPL (Mozilla Public License)
+MIT (Massachusetts Institute of Technology)
+
+Shell脚本的优点：
+1. 通过上下方向键来调取过往执行过的linux命令
+2. 命令或参数仅需要输入前几位就可以用TAB键补全
+3. 具有强大的批处理脚本功能
+4. 具有实用的环境变量功能
+
+#Important file location:
+
+* /etc/redhat-release     ---linux edition
+* ~/.bash_history          ---linux instruments history
+
+
+
+#Linux instruments
+
+!#The difference between the long format and short format
+man --help
+man -h
+
+man man
+man !#used to illustrate the function of one word{
+	space key || PAGE down key: scroll down one page
+	PAGE up key: scroll up one page
+	home key: go directly to the first page
+	end: go directly to the end page
+	/: scan from front to end, and search some key word
+	?: scan from end to front, and search some key word
+	n: Target to the next searched word
+	N: Target to the last searched word
+	q: exit to the help documents
+	structure: 命令的名称+参数的大概使用用法+介绍说明+演示(附带简单说明)+概述+默认的功能+具体的可用选项(带介绍)+环境变量+用到的文件+相关的资料+维护历史与联系方式
+}
+
+echo !#used for outputing the character string or the truth value of the variables.
+echo Tianyi     !#Tianyi
+echo $SHELL   !#/bin/bash
+
+date !#used for show or change the time of system
+date[option][+designated format]
+date{
+	%t: Tab
+	%H: hour 24 format
+	%I: hour 12 format
+	%M: minute 
+	%S: second
+	%j: 今年中的第几天
+}
+date
+date "+%Y-%m-%d %H:%M:%S"   !#2017-08-24 16:11:23
+date -s "20170901 8:30:00"  !#set the current system time
+date "+%j"
+
+reboot
+
+poweroff
+
+wget [parameters]download link
+wget{
+	-b  download behind the platform
+	-P  download to the designated catalog
+	-t   the max tring times
+	-c   http断点续传
+	-p  download all the resource in the webpage, including the picture and video things.
+	-r  recursive downloading
+}
+wget http://www.linuxprobe.com/docs/LinuxProbe.pdf
+wget -r -p http://www.linuxprobe.com/docs/LinuxProbe.pdf
+
+ps  !#used for checking the status of processes in system
+ps [parameters]
+ps{
+	-a: show all the processes
+	-u: who the users and other detailed information
+	-x: show processes without controlling terminals
+}
+process status{
+	R: The process is running or waiting in the running queue
+	S: process is sleeping, when one condition is satisfied or receive some certain signal, then wake up from this status.
+	D: The process keep silence to the signal from system, even the kill instrument cannot stop it.
+	Z: The process is stopped but the process still exsit until its father process transfer the wait() function.
+	T: the process has got the signal from system and stop running.
+}
+
+top !# used for monitor the processes activities and system load etc.
+top{
+	第1行：系统时间、运行时间、登录终端数、系统负载（三个数值分别为1分钟、5分钟、15分钟内的平均值，数值越小意味着负载越低）。
+    第2行：进程总数、运行中的进程数、睡眠中的进程数、停止的进程数、僵死的进程数。
+    第3行：用户占用资源百分比、系统内核占用资源百分比、改变过优先级的进程资源百分比、空闲的资源百分比等。其中数据均为CPU数据并以百分比格式显示，例如“97.1 id”意味着有97.1%的CPU处理器资源处于空闲。
+    第4行：物理内存总量、内存使用量、内存空闲量、作为内核缓存的内存量。
+    第5行：虚拟内存总量、虚拟内存使用量、虚拟内存空闲量、已被提前加载的内存量。
+}
+
+pidof !#pidof used for getting the PID value of some designated processes.
+pid [parameters][service name]
+pidof sshd
+
+kill  !#used for terminating some certain process
+kill [parameters][process PID]
+kill 2156
+
+killall  !#used for terminating some designated service processes
+killall [parameters][service name]
+pidof httpd
+killall httpd
+pidof httpd
+
+ifconfig  !#used for obtaining the configuration of netcard and status of network.
+ifconfig [network device][parameters]
+ifconfig{
+	network card name: eno16777728
+	inet 192.168.10.10: IP address
+	ether 00:0c:29:c4:a4:09: MAC address
+	RX, TX: The total number  of data package received and sent
+}
+
+uname  !# used for checking the information of system core and system edition
+uname -a
+系统的内核名称，主机名，内核发行版本，节点名，系统时间，硬件名称，硬件平台，处理器类型，操作系统名称
+
+uptime  #used for checking the averaged system load of 1min, 5min and 15min
+负载是越低越好，尽量不要长期超过1，在生产环境中尽量不要超过5
+
+free  !#used for show the memory usage information of current system
+free[-h]
+free -h
+
+who  !#used for checking the information of the user who has logged in the machine.
+
+last  !#used for checking the log of all the login information which was resevered in system log. 
+
+history  !#used for list all the instruments which have been executed 
+!55  !#execute the repeated instruments whose number is 55 in instruments history
+history -c !#clear all the history
+
+sosreport  !#used for collecting the information of system configuration and framework to a specific documents whose format is sosreport.
+
+pwd  !# show the current path of current working dictionary
+
+cd    !#used for switching the path of system 
+
+ls  !#show the information of documents in current dictionary.
+ls{
+	-a show all the file including the hidden file
+	-l show the attributes, size and other detailed information
+}
+
+cat  !# used for checking plain text file
+cat [option][documents]
+cat -n documents   !# if you wanna see the row number
+
+more  !#more is used for checking the plain text file whose content is a lot. 
+
+head  !#用于查看纯文本文件的前N行
+head [options][documents]
+head -n 20 initial-setup-ks.cfg
+
+tail   !#用于查看纯文本文件的后N行
+tail [options][documents]
+tail -n 20 initial-setup-ks.cfg
+tail -f documents   !# if you wanna check some files who have dynamtic contents. 
+tail -f /var/log/messages
+
+tr  !#used for replace the characters in some certain plain text file.
+cat anaconda-ks.cfg | tr [a-z] [A-Z]
+
+wc  !#used for count the row number, character number and char number of specific file
+wc [parameters] documents
+wc{
+	-l   show the row number
+	-w   show the word number
+	-c show the char number
+}
+wc -l /etc/passwd
+
+stat  !# used for checking the detailed storage information and time.
+stat [documents name]
+stat anaconda-ks.cfg
+
+cut  !# used for extract plain text file by colomn 
+cut [parameters] plain documents
+head -n 2 /etx/passwd
+cut -d: -f1 /etc/passwd   !#-d设置间隔符号   -f提取出来的列的列号
+
+diff   !#used for comparing multiple file 
+diff [parameters] documents
+diff{
+	--brief : to make show if two file is same or not
+	-c : to get the difference in detailed.
+}
+cat diff_A.txt
+cat diff_B.txt
+diff --brief diff_A.txt diff_B.txt
+diff -c diff_A.txt diff_B.txt
+
+touch  !#used for created blank file or set the time of file
+touch [options][document]
+touch linuxprobe   !# To create a new file, the file name is linuxprobe
+touch{
+	-a: change the read time only (atime)
+	-m: change the modified time only (mtime)
+	-d: change the atime and mtime in the meanwhile
+} 
+ls -l anaconda-ks.cfg
+echo "Visit the linuxprobe.com to learn linux skills" >> anconda-ks.cfg
+ls -l anaconda-ks.cfg
+touch -d "2017-05-04 15:44" anaconda-ks.cfg
+ls -l anaconda-ks.cfg
+
+mkdir  !# make a blank dictionary
+mkdir linuxprobe
+cd linuxprobe
+mkdir -p a/b/c/d/e/f    !# create the blank dictionary recursively.
+cd a
+cd b
+
+cp   !#used for copy document or dictionary
+cp [options] sourceFile objectFile
+cp{
+	if the objectFile is dictionary, then it wil copy the sourceFile to this dictionary
+	if the objectFile is normal file, then it will ask if cover or not
+	if the objectFile doesnot exist, then it will execute the normal operation of this file
+}
+cp{
+	-p: reserve the original file's attributes
+	-d: if the object is 'link file', then it will keep the original attributes of 'link file'
+	-r: copy recursively, used in dictionary
+	-i: If the objectFile exist, it will ask if cover the objectFile or not
+	-a: it is equivalent to the -pdr
+}
+
+mv  !# used for cut or rename the file
+mv [options] resourceFile [objectPath|objectDocumentName]
+mv x.log linux.log
+
+rm  !# used for deleting document or dictionary
+rm [options] document
+rm install.log
+rm -f linux.log   !#forced to delete
+rm -r linux      !# delete a dictionary
+
+dd   !#dd命令用于按照指定大小和个数的数据块来复制文件或转换文件
+dd [parameters]
+dd{
+	if: input file name
+	of: output file name
+	bs: set the size of every block
+	count: set the number of blocks
+}
+dd if=/dev/zero of=560_file count=1 bs=560M
+dd命令的功能也绝不仅限于复制文件这么简单。如果您想把光驱设备中的光盘制作成iso格式的镜像文件，在Windows系统中需要借助于第三方软件才能做到，但在Linux系统中可以直接使用dd命令来压制出光盘镜像文件，将它变成一个可立即使用的iso镜像：
+dd if=/dev/cdrom of=RHEL-server-7.0-x86_64-LinuxProbe.Com.iso
+
+file   !# used for checking the type of file
+file anaconda-ks.cfg
+file /dev/sda
+在Linux系统中，由于文本目录设备这些文件被统称为文件，我们又不能从文件后缀判断文件类型
+
+tar   !# used for compressing file and unpack file
+tar{
+	-c: create new compressed file
+	-x: unzip the compressed file
+	-t: to check all the file in the compressed file
+	-z: use Gzip compact or loose file
+	-j: use bzip2 to compress or loose file 
+	-v: show the compression progress
+	-f: target file 's name
+	-p: resever the orginal 权限和属性
+	-P: use the absolute path to compress
+	-C: designate the final dictionary制定解压到的目录
+}
+tar czvf etc.tar.gz /etc
+mkdir /root/etc
+tar xzvf etc.tar.gz -C /root/etc
+
+grep   !#used for search via key word.
+grep [options] file
+grep {
+	-b 	将可执行文件(binary)当作文本文件（text）来搜索
+	-c 	仅显示找到的行数
+	-i 	忽略大小写
+	-n 	显示行号
+	-v 	反向选择——仅列出没有“关键词”的行
+}
+
+grep /sbin/nologin /etc/passwd     !#使用grep命令来查找出当前系统中不允许登录系统的所有用户信息
+
+find   !# used for find file by some specific conditions
+find [finding path] conditions operation
+find{
+	-name 	匹配名称
+	-perm 	匹配权限（mode为完全匹配，-mode为包含即可）
+	-user 	匹配所有者
+	-group 	匹配所有组
+	-mtime -n +n 	匹配修改内容的时间（-n指n天以内，+n指n天以前）
+	-atime -n +n 	匹配访问文件的时间（-n指n天以内，+n指n天以前）
+	-ctime -n +n 	匹配修改文件权限的时间（-n指n天以内，+n指n天以前）
+	-nouser 	匹配无所有者的文件
+	-nogroup 	匹配无所有组的文件
+	-newer f1 !f2 	匹配比文件f1新但比f2旧的文件
+	--type b/d/c/p/l/f 	匹配文件类型（后面的字幕字母依次表示块设备、目录、字符设备、管道、链接文件、文本文件）
+	-size 	匹配文件的大小（+50KB为查找超过50KB的文件，而-50KB为查找小于50KB的文件）
+	-prune 	忽略某个目录
+	-exec …… {}\; 	后面可跟用于进一步处理搜索结果的命令（下文会有演示）
+}
+
+find /etc -name "host*" -print     !#获取到该目录中所有以host开头的文件列表
+find / -perm -4000 -print       !#如果要在整个系统中搜索权限中包括SUID权限的所有文件（详见第5章），只需使用-4000即可
+进阶实验：在整个文件系统中找出所有归属于linuxprobe用户的文件并复制到/root/findresults目录。
+该实验的重点是“-exec {}   \;”参数，其中的{}表示find命令搜索出的每一个文件，并且命令的结尾必须是“\;”。完成该实验的具体命令如下：
+[root@linuxprobe ~]# find / -user linuxprobe -exec cp -a {} /root/findresults/ \;
+how to find a specific document below one dictionary? For example, we are going to search passwd file below the /etc
+find /etc -name passwd
+find /etc -name pass\*
+which passwd
+which -a passwd
+whereis passwd
+
+
+
+
+
+
+
+读写操作重定向技术的五种模式
+标准覆盖输出重定向
+标准追加输出重定向
+错误覆盖输出重定向
+错误追加输出重定向
+输入重定向
+
+输入重定向： 把文件导入到命令中去
+输出重定向： 把原本要输出到屏幕的数据信息写入到指定文件中去
+标准输入重定向（STDIN，文件描述符是0）：默认是从键盘输入，也可从其他文件或命令中输入
+标准输出重定向（STDOUT，文件描述符是1）：默认输出到屏幕
+错误输出重定向（STDERR，文件描述符是2）：默认输出到屏幕
+
+输入重定向用到的符号{
+	命令 < 文件 	将文件作为命令的标准输入
+	命令 << 分界符 	从标准输入中读入，直到遇见分界符才停止
+	命令 < 文件1 > 文件2 	将文件1作为命令的标准输入并将标准输出到文件2
+}
+输出重定向用到的符号{
+	命令>文件      将标准输出重定向到一个文件中去（清空原有文件的数据）
+	命令2>文件    将错误输出重定向到一个文件中去（清空原有文件的数据）
+	命令>>文件    将标准输出重定向到一个文件中去（追加到原有内容的后面）
+	命令2>>文件  将错误输出重定向到一个文件中去（追加到原有内容的后面）
+	命令>>文件2>&1或命令&>>文件   将标准输出与错误输出共同写入到文件中去（追加到原有内容的后面）
+}
+man bash > readme.txt
+cat readme.txt
+
+echo "welcome to" > readme.txt
+echo "quality linux" >> readme.txt
+cat readme.txt
+
+ls -l xxxxx
+ls -l xxxxx 2> /root/stderr.txt
+cat /root/stderr.txt
+
+wc -l <readme.txt
+
+管道符 |   !# 把前一个命令原本要输出到屏幕上的标准输出当作是后面一个命令的标准输入
+cat readme.txt | wc -l
+grep "/sbin/nologin" /etc/passwd | wc -l
+ls -l /etc/ | more    !#用翻页的形式查看/etc目录中的文件列表和属性信息
+echo "linuxprobe" | passwd --stdin root    !#更改用户密码的一行命令
+echo "Content" | mail -s "Subject" linuxprobe
+su - linuxprobe
+mail
+
+mail -s "Readme" root@linuxprobe.com << over    !# mail邮件命令与输入重定向的分界符，其目的是让用户一直输入内容，直到用户输入了其自定义的分界符时，才结束输入。
+> I think linux is very practical
+> I hope to learn more
+> can u teach me?
+> over
+
+通配符
+ls -l /dev/sda
+ls -l /dev/sda1
+ls -l /dev/sda2
+ls -l /dev/sda3
+
+*代表匹配零个或者多个字符
+?代表匹配单个字符
+[0-9]代表匹配0~9之间的数字
+[a,b,c]代表匹配a,b,c中的任何一个字符
+
+转义字符{
+    反斜杠（\）：使反斜杠后面的一个变量变为单纯的字符串。
+    单引号（''）：转义其中所有的变量为单纯的字符串。
+    双引号（""）：保留其中的变量属性，不进行转义处理。
+    反引号（``）：把其中的命令执行后返回结果。
+}
+PRICE=5
+echo "Price is $PRICE"
+$$    !#显示当前程序的进程号码
+echo "Price is \$$PRICE"
+echo `uname -a`
+
+在Linux系统中变量的名称都是大写的
+我们可以直接通过变量名称来提取到对应的变量值。Linux系统中的环境变量是用来定义系统运行环境的一些参数，比如每个用户不同的家目录、邮件存放位置等。
+第1步：判断用户是否以绝对路径或相对路径的方式输入命令（如/bin/ls），如果是的话则直接执行。
+
+第2步：Linux系统检查用户输入的命令是否为“别名命令”，即用一个自定义的命令名称来替换原本的命令名称。可以用alias命令来创建一个属于自己的命令别名，格式为“alias 别名=命令”。若要取消一个命令别名，则是用unalias命令，格式为“unalias 别名”。我们之前在使用rm命令删除文件时，Linux系统都会要求我们再确认是否执行删除操作，其实这就是Linux系统为了防止用户误删除文件而特意设置的rm别名命令，接下来我们把它取消掉：
+
+[root@linuxprobe ~]# ls
+anaconda-ks.cfg Documents initial-setup-ks.cfg Pictures Templates
+Desktop Downloads Music Public Videos
+[root@linuxprobe ~]# rm anaconda-ks.cfg 
+rm: remove regular file ‘anaconda-ks.cfg’? y
+[root@linuxprobe~]# alias rm
+alias rm='rm -i'
+[root@linuxprobe ~]# unalias rm
+[root@linuxprobe ~]# rm initial-setup-ks.cfg 
+[root@linuxprobe ~]#
+
+第3步：Bash解释器判断用户输入的是内部命令还是外部命令。内部命令是解释器内部的指令，会被直接执行；而用户在绝大部分时间输入的是外部命令，这些命令交由步骤4继续处理。可以使用“type命令名称”来判断用户输入的命令是内部命令还是外部命令。
+
+第4步：系统在多个路径中查找用户输入的命令文件，而定义这些路径的变量叫作PATH，可以简单地把它理解成是“解释器的小助手”，作用是告诉Bash解释器待执行的命令可能存放的位置，然后Bash解释器就会乖乖地在这些位置中逐个查找。PATH是由多个路径值组成的变量，每个路径值之间用冒号间隔，对这些路径的增加和删除操作将影响到Bash解释器对Linux命令的查找。
+
+[root@linuxprobe ~]# echo $PATH
+/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
+[root@linuxprobe ~]# PATH=$PATH:/root/bin
+[root@linuxprobe ~]# echo $PATH
+/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/root/bin
+
+linux 环境变量{
+	HOME 	用户的主目录（即家目录）
+	SHELL 	用户在使用的Shell解释器名称
+	HISTSIZE 	输出的历史命令记录条数
+	HISTFILESIZE 	保存的历史命令记录条数
+	MAIL 	邮件保存路径
+	LANG 	系统语言、语系名称
+	RANDOM 	生成一个随机数字
+	PS1 	Bash解释器的提示符
+	PATH 	定义解释器搜索用户执行命令的路径
+	EDITOR 	用户默认的文本编辑器
+}
+
+Linux作为一个多用户多任务的操作系统，能够为每个用户提供独立的、合适的工作运行环境，因此，一个相同的变量会因为用户身份的不同而具有不同的值。例如，我们使用下述命令来查看HOME变量在不同用户身份下都有哪些值（su是用于切换用户身份的命令，将在第5章跟大家见面）：
+
+[root@linuxprobe ~]# echo $HOME
+/root
+[root@linuxprobe ~]# su - linuxprobe
+Last login: Fri Feb 27 19:49:57 CST 2017 on pts/0
+[linuxprobe@linuxprobe ~]$ echo $HOME
+/home/linuxprobe
+
+其实变量是由固定的变量名与用户或系统设置的变量值两部分组成的，我们完全可以自行创建变量，来满足工作需求。例如设置一个名称为WORKDIR的变量，方便用户更轻松地进入一个层次较深的目录：
+
+[root@linuxprobe ~]# mkdir /home/workdir
+[root@linuxprobe ~]# WORKDIR=/home/workdir
+[root@linuxprobe ~]# cd $WORKDIR 
+[root@linuxprobe workdir]# pwd
+/home/workdir
+
+但是，这样的变量不具有全局性，作用范围也有限，默认情况下不能被其他用户使用。如果工作需要，可以使用export命令将其提升为全局变量，这样其他用户也就可以使用它了：
+
+[root@linuxprobe workdir]# su linuxprobe
+Last login: Fri Mar 20 20:52:10 CST 2017 on pts/0
+[linuxprobe@linuxprobe ~]$ cd $WORKDIR
+[linuxprobe@linuxprobe ~]$ echo $WORKDIR
+[linuxprobe@linuxprobe ~]$ exit
+[root@linuxprobe ~]# export WORKDIR
+[root@linuxprobe ~]# su linuxprobe
+Last login: Fri Mar 20 21:52:10 CST 2017 on pts/0
+[linuxprobe@linuxprobe ~]$ cd $WORKDIR
+[linuxprobe@linuxprobe workdir]$ pwd
+/home/workdir
+
+vim compiler
+In linux system, everything in this system is files.  => how to configure one service? == to change the parameters of its configuration file.
+In vim compiler, it support three kind of mode (instrument mode, input mode and last end mode)
+
+dd -- delete(cut) the specific line where the cursor is
+5dd -- delete(cut) the specifc line where the cursor is and another 4 lines below this line.
+yy -- copy the specific line where the cursor is
+5yy -- copy the specific line where the cursor is and another 4 lines below this line.
+n -- show the next string where the searching order locate
+N -- show the last string where the searching order locate
+u -- revoke last operation
+p -- paste
+
+:w -- save
+:q -- quit
+:q! -- force to quit and discard the modified content
+:wq! -- save and force to quit. 
+:set nu -- show the number of line
+:set nonu -- dont show the number of line
+:instrument -- execute this instrument
+:integer -- jump to this specific line
+:s/one/two -- replace the first one to two where the cursor is.
+:s/one/two/g  -- replace all the one to two where the cursor is.
+:%s/one/two/g -- replace all the one to two in the context.
+?string -- search this string from down to up
+/string -- search this string from up to down
+
+vim practice.txt
+a i o == switch from the instrument mode to input mode
+
+To configure a network card: the net card name is ifcfg-eno
+cd /etc/sysconfig/network-scripts   (the location of your net card 's configuraiton file)
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=eno
+ONBOOT=yes
+IPADDR=192.168.10.10
+NETMASK=255.255.255.0
+GATEWAY=192.168.10.1
+DNS1=192.168.10.1
+
+
+systemctl restart network
+ping 192.168.10.10
+
+Configure the Yum repository:
+cd /etc/yum.repos.d/
+vim rhel7.repo
+[rhel-media]      ----- the only identity of yum repository, avoid the confliction with other repository
+name=linuxprobe    --- the name desciption of yum repository, so that we can recognize the function of this repository
+baseurl=file:///media/cdrom    ---- able to use FTP, http and local to install software
+enabled=1     ----    set if this source can be used or not. 1--- we can use it.. 0 --- we are forbidden to use that 
+gpgcheck=1    ---- set if this source is a checked file or not   1--- check    0---without check
+gpgkey=file:///media/cdrom/RPM-GPG-KEY-redhat-release   --- if the upper item has opened the check function, then we can point out the address of public key in this instrument
+按照配置参数的路径挂载光盘，并把光盘的挂载信息写到/etc/fstab文件中
+use the "yum install httpd -y" to check if the yum repository can be used or not.
+
+cd /etc/yum.repos.d/
+vim rhel7.repo
+name=rhel7
+baseurl=file:///media/cdrom
+enabled=1
+gpgcheck=0
+
+创建挂载点后进行挂载操作，并设置成开机自动挂载（详见第6章）。尝试使用Yum软件仓库来安装Web服务，出现Complete！则代表配置正确：
+[root@linuxprobe yum.repos.d]# mkdir -p /media/cdrom
+[root@linuxprobe yum.repos.d]# mount /dev/cdrom /media/cdrom
+mount: /dev/sr0 is write-protected, mounting read-only
+[root@linuxprobe yum.repos.d]# vim /etc/fstab
+/dev/cdrom /media/cdrom iso9660 defaults 0 0
+[root@linuxprobe ~]# yum install httpd
+
+
+
+Shell script:
+interactive and batch
+
+vim example.sh
+#!/bin/bash
+#For Example
+pwd
+ls -al
+
+bash example.sh
+./example.sh
+chmod u+x example.sh
+./example.sh
+Linux系统中的Shell脚本语言早就考虑到了这些，已经内设了用于接收参数的变量，变量之间可以使用空格间隔。例如$0对应的是当前Shell脚本程序的名称，$#对应的是总共有几个参数，$*对应的是所有位置的参数值，$?对应的是显示上一次命令的执行返回值，而$1、$2、$3……则分别对应着第N个位置的参数值
+
+/etc/profile.d      ---- This profile is used to reserve the information of device on Ubuntu  --- In this folder, these item can be started when the machine is power on
+
+xinput list --name-only
+xinput disable "Elan Touchpad"
+xinput --set-prop "pointer:Logitech USB Receiver" "Device Accel Constant Deceleration" 1.7
+
+xdg-open file      open file from terminal
+
+sudo -i   switch to the super user
+exit      switch to the regular user
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
