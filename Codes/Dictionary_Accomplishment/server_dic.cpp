@@ -1,5 +1,6 @@
-#define PORT 1994
-#define PORT_S 1153
+#define PORT 1995
+// #define PORT_S 1153
+#define PORT_S 1994
 #define BUFSIZE 2048
 #define _BSD_SOURCE
 
@@ -42,7 +43,7 @@ int do_server(){
     memset((char *)&myaddr, 0, sizeof(myaddr));
     myaddr.sin_family = AF_INET;
     myaddr.sin_port = htons(PORT);
-    inet_aton("172.16.199.204", &myaddr.sin_addr);
+    inet_aton("192.168.1.11", &myaddr.sin_addr);
 
     if (bind(fd, (struct sockaddr *)&myaddr, sizeof(myaddr)) < 0) {
             cerr << "bind failed" << endl;
@@ -97,16 +98,13 @@ int do_server(){
             }
     }
 }
-
-
-
-// int send_message(const char* message){
 int send_message(string message){
 	struct sockaddr_in servaddr;    /* server address */
 	int fd;
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port = htons(PORT_S);
-	inet_aton("172.16.199.204", &servaddr.sin_addr);
+	inet_aton("192.168.1.13", &servaddr.sin_addr);
+	// inet_aton("172.16.199.204", &servaddr.sin_addr);
 	if ((fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
                 cerr << "cannot create socket" << endl;
                 return 0;
