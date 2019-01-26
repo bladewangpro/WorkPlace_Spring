@@ -17,7 +17,6 @@ int check_first(string target);
 void show_interface();
 
 int main(){
-	
 	struct sockaddr_in myaddr;      /* our address */
     struct sockaddr_in remaddr;     /* remote address */
     socklen_t addrlen = sizeof(remaddr);            /* length of addresses */
@@ -48,15 +47,8 @@ int main(){
 		        cout << "received message: \n" << show_info << endl;
 		}
     }
-    
-	
-	return 0;
+    return 0;
 }
-
-
-
-
-
 int do_search(const char* my_message){
 	struct sockaddr_in servaddr;    /* server address */
 	int fd;
@@ -73,11 +65,6 @@ int do_search(const char* my_message){
 	}
 	return 0;
 }
-
-
-
-
-
 int check_first(string target){
 	for(int i = 0; i < target.length(); i++){
 		if(target[i] < 'a' || target[i] > 'z'){
@@ -86,12 +73,6 @@ int check_first(string target){
 	}
 	return 1;
 }
-
-
-
-
-
-
 void show_interface(){
 	string target;
 	cout << "Please input the word which you wanna know:"<<endl;
