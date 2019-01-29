@@ -1,0 +1,666 @@
+#random number generated
+import numpy as np
+data = {i : np.random.randn() for i in range(7)}
+data
+#ipython is more readable than the normal python
+'''Ipython shell
+we can use TAB key to complete the sentence in your browser.
+this shell is a cosmetically different version of python
+'''
+'''Jupyter notebook
+b = [1,2,3]
+b?
+print?
+'''
+def add_numbers(a, b):
+	return a + b
+#using ? shows us the information about this function
+#using ?? will show the source code of this function asap
+#? has a final usage, which is for searching the IPython namespace in a manner similar to the Unix
+#we can run any file as Python program inside IPython session
+%run ipython_script_test.py
+#if a python file need certain parameters, then sys.argv
+#if u wish to give a script access to variables already defined in the interactive IPython namespace, %run -i instead of plain %run
+%load ipython_script_test.py
+#in Jupyter notebook, imports a script into a code cell
+%paste
+#it will takes whatever test in the clipboard and executes it as a single block in the cell
+%cpaste
+#it gives you a special prompt for pasting code into
+---------------------------------Magic Command
+import numpy as np
+a = np.random.randn()
+%timeit np.dot(a,a)   # We will get the times it executed
+#many of magic command has options, we can use the ? to check
+%debug?
+%pwd
+foo = %pwd
+#data visualization and other interface libraries like matplotlib
+type(a)
+
+a = 5
+isinstance(a, int)
+a = 5; b = 4.5
+isinstance(a, (int, float))
+isinstance(b, (int, float))
+
+#show the arributes and methods
+a = 'foo'
+a.<Press TAB>
+#also
+getattr(a, 'split')
+
+-----------------------------------Duck typing "If it walks like a duck, quacks like a duck, then it's a duck"
+#sometimes, you may not care about the type of an object but rather than whether is has certain method or behavior.
+def isiterable(obj):
+	try:
+		iter(obj)
+		return True
+	except TypeError:
+		return False
+isiterable('a string')
+isiterable('[1, 2, 3]')
+isiterable(5)
+
+if not isinstance(x, list) and isiterable(x):
+	x = list(x)
+
+import some_module #some_module.py
+result = some_module.f(5)
+pi = some_module.PI 
+
+from some_module import f,g,PI
+result = g(5, PI)
+
+import some_module as sm
+from some_module import PI as pi, g as gf
+r1 = sm.f(pi)
+r2 = gf(6, pi)
+
+#Most of the binary math operations and comparisons are as you might expect:
+a is b  #True if a and b reference the same Python object
+a is not b #True if a and b reference different Python objects
+
+#strings and tuples are immutable
+#Scalar type in Python
+str, None, bytes, float, bool, int
+c = """
+This is a longer string that
+spans multiple lines
+"""
+c.count('\n') # 3
+
+a = 'this is a string'
+b = a.replace('string', 'longer string')
+
+#casting
+a = 5.6
+s = str(a)
+s = 'python'
+list(s)
+#'' need \, "" don't need \\
+s = r'this\\has\\no\\special\\characters'
+
+a = 'apple'
+b = 'pig'
+a + b
+
+template = '{0:.2f} {1:s} are worth US${2:d}'
+'''
+{0:.2f} means to format the first argument as a floating-point number with two
+decimal places.
+{1:s} means to format the second argument as a string.
+{2:d} means to format the third argument as an exact integer.
+'''
+template.format(4.5560, 'Argentine Pesos', 1)
+
+val_utf8 = val.encode('utf-8')
+val_utf8.decode('utf-8')
+
+bytes_val = b'this is bytes'
+decoded = bytes_val.decode('utf8')
+True and True
+False or True
+
+s = '3.14159'
+fval = float(s)
+int(fval)
+bool(fval)
+bool(0)
+
+a = None
+a is None
+b = 5
+b is not None
+
+from datetime import datetime, date, time
+dt = datetime(2011, 10, 29, 20, 30, 21)
+dt.day
+dt.minute
+
+dt.date()
+dt.time()
+dt.strftime('%m/%d/%Y %H:%M')
+datetime.strptime('20091031', '%Y%m%d')
+dt.replace(minute = 0, second = 0)
+dt2 = datetime(2011, 11, 15, 22, 30)
+delta = dt2 - dt
+delta
+type(delta)
+dt + delta
+
+
+if a < b or c > d:
+	print('Made it')
+4 > 3 > 2 > 1
+
+for value in collection:
+	# do something with value
+for i in range(4):
+	for j in range(4):
+		if j > i:
+			break
+		print((i, j))
+
+
+for a, b, c in iterator:
+# do something
+
+x = 256
+total = 0
+while x > 0:
+	if total > 500:
+		break
+	total += x
+	x = x //2
+
+if x < 0:
+	print('negative!')
+elif x == 0:
+# TODO: put something smart here
+	pass
+else:
+	print('positive!')
+
+list(range(10))
+list(range(0, 20, 2))
+list(range(5, 0, -1))
+
+seq = [1, 2, 3, 4]
+for i in range(len(seq)):
+	val = seq[i]
+
+sum = 0
+for i in range(100000):
+# % is the modulo operator
+	if i % 3 == 0 or i % 5 == 0:
+		sum += i
+#value = true-expr if condition else false-expr
+x = 5
+'Non-negative' if x >= 0 else 'Negative'
+
+
+tup = 4, 5, 6 #tuple
+nested_tup = (4, 5, 6), (7, 8)
+tuple([4, 0, 2]) #convert to the tuple
+tup = tuple('string')
+
+#While the objects stored in a tuple may be mutable themselves, once the tuple is created it’s not possible to modify which object is stored in each slot:
+tup = tuple(['foo', [1, 2], True])
+tup[2] = False # running error
+#If an object inside a tuple is mutable, such as a list, you can modify it in-place:
+tup[1].append(3)
+#You can concatenate tuples using the + operator to produce longer tuples:
+(4, None, 'foo') + (6, 0) + ('bar',)
+('foo', 'bar') * 4
+
+-----------------unpacking tuples
+tup = (4, 5, 6)
+a, b, c = tup
+
+tup = 4, 5, (6, 7)
+a, b, (c, d) = tup
+
+#swap
+b, a = a, b
+
+seq = [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
+for a, b, c in seq:
+	print('a={0}, b={1}, c={2}'.format(a, b, c))
+
+values = 1, 2, 3, 4, 5
+a , b, *rest = values
+a, b # tuple
+rest #list
+
+a = (1, 2, 2, 2, 3, 4, 2)
+a.count(2)
+
+----------------------------list
+tup = ('foo', 'bar', 'baz')
+b_list = list(tup)
+
+gen = range(10)
+list(gen)
+
+b_list.append('dwarf')
+b_list.insert(1, 'red')
+b_list.pop(2)
+
+b_list.append('foo')
+b_list.remove('foo')
+
+'dwarf' in b_list
+'dwarf' not in b_list
+
+[4, None, 'foo'] + [7, 8, (2, 3)]
+x = [4, None, 'foo']
+x.extend([7, 8, (2, 3)])
+
+
+everything = []
+for chunk in list_of_lists:
+	everything.extend(chunk)
+#is faster than the concatenative alternative:
+everything = []
+for chunk in list_of_lists:
+	everything = everything + chunk  #concatenating is time-consuming
+
+a = [7, 2, 5, 1, 3]
+a.sort()
+b = ['saw', 'small', 'He', 'foxes', 'six']
+b.sort(key=len)
+'''
+The built-in bisect module implements binary search and insertion into a sorted list.
+bisect.bisect finds the location where an element should be inserted to keep it sor‐
+ted, while bisect.insort actually inserts the element into that location:
+'''
+import bisect
+c = [1, 2, 2, 2, 3, 4, 7]
+bisect.bisect(c, 2)  #4
+bisect.bisect(c, 5)  #6
+bisect.insort(c, 6)  #c [1, 2, 2, 2, 3, 4, 6, 7]
+
+
+-------------------------------slicing
+seq = [7, 2, 3, 7, 5, 6, 0, 1]
+seq[1:5]
+seq[3:4] = [6, 3]
+seq[:5]
+seq[3:]
+seq[-4:]
+seq[-6:-2]
+seq[::2]  #[7, 3, 3, 6, 1]
+seq[::-1] #reversing a list or tuple
+
+
+
+i = 0
+for value in collection:
+# do something with value
+	i += 1
+#equal to 
+for i, value in enumerate(collection):
+# do something with value
+
+some_list = ['foo', 'bar', 'baz']
+mapping = {}
+for i, v in enumerate(some_list):
+	mapping[v] = i
+mapping
+
+sorted([7, 1, 2, 6, 0, 3, 2])
+sorted('horse race')
+
+seq1 = ['foo', 'bar', 'baz']
+seq2 = ['one', 'two', 'three']
+zipped = zip(seq1, seq2)
+list(zipped)
+seq3 = [False, True]
+list(zip(seq1, seq2, seq3)) #only zip the first two items
+
+for i, (a, b) in enumerate(zip(seq1, seq2)):
+	print('{0}: {1}, {2}'.format(i, a, b))
+
+pitchers = [('Nolan', 'Ryan'), ('Roger', 'Clemens'),('Schilling', 'Curt')]
+first_names, last_names = zip(*pitchers)
+first_names
+last_names
+
+list(reversed(range(10)))
+
+---------------------------------dictionary
+'b' in d1
+del d1[5]
+ret = d1.pop('dummy') #ret is the value who is being deleted, and d1 is the dictionary after the modification
+
+list(d1.keys())
+list(d1.values())
+d1.update({'b' : 'foo', 'c' : 12}) #You can merge one dict into another using the update method
+
+#Creating dicts from sequences
+mapping = {}
+for key, value in zip(key_list, value_list):
+	mapping[key] = value
+
+mapping = dict(zip(range(5), reversed(range(5))))
+
+--------------------setting the default value
+if key in some_dict:
+	value = some_dict[key]
+else:
+	value = default_value
+#equals to
+value = some_dict.get(key, default_value)
+
+words = ['apple', 'bat', 'bar', 'atom', 'book']
+by_letter = {}
+
+for word in words:
+	letter = word[0]
+	if letter not in by_letter:
+		by_letter[letter] = [word]
+	else:
+		by_letter.append(word)
+
+for word in words:
+	letter = word[0]
+	by_letter.setdefault(letter, []).append(word)
+
+from collections import defaultdict
+by_letter = defaultdict(list)
+for word in words:
+	by_letter[word[0]].append(word)
+
+--------------------hashability
+hash('string')
+hash(1, 2, (2, 3))
+hash(1, 2, [2, 3])  #this one will fail, cuz it has list and will change
+
+d = {}
+d[tuple([1, 2, 3])] = 5  #To use a list as a key, one option is to convert it to a tuple, which can be hashed as long as its elements also can
+
+--------------------------------------------------set
+set([2, 2, 2, 1, 3, 3])
+{2, 2, 2, 1, 3, 3}
+
+a = {1, 2, 3, 4, 5}
+b = {3, 4, 5, 6, 7, 8}
+
+a.union(b) #which is equvalent to a | b
+a.intersection(b)  #which is equvalent to a & b
+
+c = a.copy()
+c |= b
+d = a.copy()
+d &= b 
+
+[expr for val in collection if condition]
+#equals to 
+result = []
+for val in collection:
+	if condition:
+		result.append(expr)
+
+strings = ['a', 'as', 'bat', 'car', 'dove', 'python']
+[x.upper() for x in strings if len(x) > 2]
+
+unique_lengths = {len(x) for x in strings}
+
+set(map(len, strings))
+
+loc_mapping = {val : index for index, val in enumerate(strings)}
+
+all_data = [['John', 'Emily', 'Michael', 'Mary', 'Steven'], ['Maria', 'Juan', 'Javier', 'Natalia', 'Pilar']]
+names_of_interest = []
+for names in all_data:
+	enough_es = [name for name in names if name.count('e') >= 2]
+	names_of_interest.extend(enough_es)
+
+some_tuples = [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
+flattened = [x for tup in some_tuples for x in tup]
+
+#Keep in mind that the order of the for expressions would be the same if you wrote a nested for loop instead of a list comprehension:
+flattened = []
+for tup in some_tuples:
+	for x in tup:
+		flattened.append(x)
+
+return_value = f()
+def f():
+	a = 5
+	b = 6
+	c = 7
+	return {'a' : a, 'b' : b, 'c' : c}
+
+
+
+states = ['     Alabama ', 'Georgia!', 'Georgia', 'georgia', 'FlOrIda', 'southcarolina##', 'West virginia?']
+
+import re
+def clean_strings(strings):
+	result = []
+	for value in strings:
+		value = value.strip()
+		value = re.sub('[!#?]', '', value)
+		value = value.title()
+		result.append(value)
+	return result
+
+def remove_punctuation(value):
+	return re.sub('[!#?]', '', value)
+clean_ops = [str.strip, remove_punctuation, str.title]
+
+def clean_strings(strings, ops):
+	result = []
+	for value in strings:
+		for function in ops:
+			value = function(value)
+		result.append(value)
+	return result;
+clean_strings(states, clean_ops)
+
+#we can use function as arguments to other functions
+for x in map(remove_punctuation, states):
+	print(x)
+
+---------------------------------------------------------------------------------------------------lambda
+strings = ['foo', 'card', 'bar', 'aaaa', 'abab']
+strings.sort(key=lambda x: len(set(list(x))))
+strings # ['aaaa', 'foo', 'abab', 'bar', 'card']
+
+def apply_to_list(some_list, f):
+	return [f(x) for x in some_list]
+ints = [4, 0, 1, 5, 6]
+apply_to_list(ints, lambda x: x * 2)
+
+-----------------------------------------------------Curring
+'''
+Currying is computer science jargon (named after the mathematician Haskell Curry) that means deriving new functions from existing ones by partial argument application.
+'''
+def add_numbers(x, y):
+	return x + y
+add_five = lambda x: add_numbers(x, 5)
+#equals to
+from functools import partial
+add_five = partial(add_numbers, 5)
+
+
+---------------------------------------------------------generators
+some_dict = {'a':1, 'b':2, 'c':3}
+for key in some_dict:
+	print(key)
+#When you write for key in some_dict , the Python interpreter first attempts to create an iterator out of some_dict :
+dict_iterator = iter(some_dict)
+list(dict_iterator)
+
+#To create a generator, use the yield keyword instead of return in a function
+def squares(n=10):
+	print('Generating squares from 1 to {0}'.format(n ** 2))
+	for i in range(1, n+1):
+		yield i ** 2
+gen = squares()
+for x in gen:
+	print(x, end='   ')
+
+-----------------------------------------------Generator expressions
+gen = (x ** 2 for x in range(100)) #gen is a generator object
+#is completely equivalent to the following:
+def _make_gen():
+	for x in range(100):
+		yield x ** 2
+gen = _make_gen()
+
+#generator expressions can be used instead of list comprehensions as function arguments in many cases.
+sum(x ** 2 for x in range(100))
+dict((i, i **2) for i in range(5))
+
+#The standard library itertools module has a collection of generators for many common data algorithm.
+#groupby takes any sequence and a function, grouping consecutive elements in the sequence by return value of the function.
+import itertools
+first_letter = lambda x: x[0]
+names = ['Alan', 'Adam', 'Wes', 'Will', 'Albert', 'Steven']
+for letter, names in itertools.groupby(names, first_letter):
+	print(letter, list(names))
+
+----------------------------------------------address error
+'''
+we wanted a version of float that fails gracefully, returning the input arguments
+'''
+def attempt_float(x):
+	try:
+		return float(x)
+	except:
+		return x
+#if you wanna suppress ValueError, TYpeError might indicate a legitimate bug in your program
+def attemp_float(x):
+	try:
+		return float(x)
+	except ValueError:
+		return x
+
+def attemp_float(x):
+	try:
+		return float(x)
+	except (TypeError, ValueError):
+		return x
+
+'''
+In some cases, you may not want to suppress an exception, but you want some code
+to be executed regardless of whether the code in the try block succeeds or not. To do
+this, use finally
+'''
+f = open(path, 'w')
+
+try:
+	write_to_file(f)
+finally:
+	f.close()
+
+#block succeed using else:
+f = open(path, 'w')
+try:
+	write_to_file(f)
+except:
+	print('Fails')
+else:
+	print('Succeed')
+finally:
+	f.close()
+
+-----------------------------------------------------------------Files and the Operating Sytem
+#Obsolute or relative path
+path = 'examples/segismudo.txt'
+f = open(path)
+#by default,, the file is opened in read-only mode 'r'. We can then treat the file handle f like a list and iterate over the line 
+for line in f:
+	pass
+#The lines come out of the file with the end-of-line (EOL) markers intact., so you will often see code to get an EOL-free list of lines in a file like:
+lines = [x.rstrip() for x in open(path)]
+#need to close the opened file
+f.close()
+
+#other way to make it easier to clean up open files
+with open(path) as f:
+	lines = [x.rstrip() for x in f]
+#this will automatically close the file 
+
+'''
+If we had typed f = open(path, 'w') , a new file at examples/segismundo.txt would
+have been created (be careful!), overwriting any one in its place. There is also the 'x'
+file mode, which creates a writable file but fails if the file path already exists. See
+Table 3-3 for a list of all valid file read/write modes.
+'''
+#read return a certain number of characters from the file.
+f = open(path)
+f.read(10)
+f2.open(path, 'rb')#binary mode
+f2.read(10)
+#The read method advance the file handle's pos by the number of bytes read. tell gives you the current position
+f.tell()    #11
+f2.tell()   #10
+#check the default coding function
+import sys
+sys.getdefaultencoding()    #'utf-8'
+#seek changes the file position to the indicated byte in the file
+f.seek(3)  #out 3
+f.read(1)  #read the fourth position
+
+f.close()
+f2.close()
+'''
+Read-only mode                                                                                                                                                           r
+Write-only mode; creates a new file (erasing the data for any file with the same name)       w
+Write-only mode; creates a new file, but fails if the file path already exists                                  x
+Append to existing file (create the file if it does not already exist)                                                    a
+Read and write                                                                                                                                                               r+
+Add to mode for binary files (i.e., 'rb' or 'wb' )                                                                                                b
+Text mode for files (automatically decoding bytes to Unicode). This is the default if not specified. Add t to other
+modes to use this (i.e., 'rt' or 'xt' )                                                                                                                          t
+'''
+
+with open('tmp.txt', 'w') as handle:
+	handle.writelines(x for x in open(path) if len(x) > 1)
+with open('tmp.txt') as f:
+	lines = f.readlines()
+lines
+
+'''
+read([size])                 Return data from file as a string, with optional size argument indicating the number of bytes to read
+readlines([size])       Return list of lines in the file, with optional size argument
+write(str)                     Write passed string to file
+writelines(strings)  Write passed sequence of strings to the file
+close()                           Close the handle
+flush()                            Flush the internal I/O buffer to disk
+seek(pos)                     Move to indicated file position (integer)
+tell()                               Return current file position as integer
+closed                            True if the file is closed
+'''
+
+with open(path) as f:
+	chars = f.read(10)
+chars
+
+with open(path, 'rb') as f:
+	data = f.read(10)
+data
+data.decode('utf8')
+data[:4].decode('utf8')# error Depending on the text encoding, you may be able to decode the bytes to a str object yourself, but only if each of the encoded Unicode characters is fully formed:
+
+'''
+Text mode, combined with the encoding option of open , provides a convenient way
+to convert from one Unicode encoding to another:
+'''
+sink_path = 'sink.txt'
+with open(path) as source:
+	with open(sink_path, 'xt', encoding = 'iso-8859-1') as sink:
+		sink.write(source.read())
+with open(sink_path, encoding='iso-8859-1') as f:
+	print(f.read(10))
+
+
+#Beware using seek when opening files in any mode other than binary. If the file position falls in the middle of the bytes defining a Unicode character, then subsequent reads will result in an error:
+f = open(path)
+f.read(5)
+f.seek(4)
+f.read(1) #error
