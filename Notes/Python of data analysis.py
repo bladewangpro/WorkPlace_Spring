@@ -1026,6 +1026,7 @@ arr = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
 arr.cumsum(axis = 0)
 arr.cumprod(axis = 1)
 
+arr = np.random.randn(100)
 
 
 
