@@ -664,3 +664,382 @@ f = open(path)
 f.read(5)
 f.seek(4)
 f.read(1) #error
+
+
+
+
+
+
+
+
+
+----------------------------------------NumPy Basics
+'''
+NumPy's array objects is the lingua franca for data exchange.
+-ndarray, an efficient multidimensional array providing fast array-oriented arithmetic operations and flexible broadcasting capabilities.
+-Mathematical function for fast operations on entire arrays of data without having to write loops
+-Tools for reading/writing array data to disk and working with memory-mapped files
+-Linear algebra, random number generation, and Fourier transform capabilities
+-A C API for connecting NumPy with libraries written in C, C++, or FORTRAN
+
+The reason why NumPy is so efficient on processing large array of data.
+-NumPy internally stores data in a contiguous block of memory, independent of other built-in Python objects.
+-NumPy 's alg is written by C, which can operate on this memory without any type-checking or other overhead and less memory usage
+-NumPy operations perform complex computation on entire arrays without the need for Python for loops.
+'''
+#time testing
+import numpy as np
+my_arr = np.arange(1000000)
+my_list = list(range(1000000))
+%time for _ in range(10): my_arr2 = my_arr * 2
+%time for _ in range(10): my_list2 = [x * 2 for x in my_list]
+#the final result shows NumPy-based alg are 10-100 times faster than pure Python counterpartgs and use sigificantly less memory.
+
+import numpy as np
+#generate some random data
+data = np.random.randn(2, 3)
+data
+
+data * 10
+data + data
+
+##The numpy namespace is large and contains a number of functions whose names conflict with built-in Python functions (like min and max ).
+#An ndarray is a generic multidimensional container for homogeneous data, Every array has a shape, a tuple indicating the size of each dimension and dtype, an object describing the data type of the array
+
+data.shape
+data.dtype
+
+#The easiest way to create an array is to use the array function, this accepts any sequence-like object (including other arrays) and produces a new NumPy array containing the passed data.
+data1 = [6, 7.5, 8, 0, 1]
+arr1 = np.array(data1)
+arr1
+
+#Nested sequences, will be converted into multidimensional array
+data2 = [[1, 2, 3, 4], [5, 6, 7, 8]]
+arr2 = np.array(data2)
+arr2
+
+arr2.ndim   #we use this attribute to certify the dimension of this array
+arr2.shape
+
+#Unless explicitly specified, np.array tries to infer a good data type for the array that it creates.
+#******************This data type is stored in a special dtype metadata object.
+arr1.dtype
+arr2.dtype
+
+
+np.zeros(10)   #one dimension
+np.zeros((3, 6)) # row 3 colomn 6
+np.empty((2, 3, 2)) #******************************It is not safe to assume that np.empty will return an array of all zeros. In some cases, it may return unintialized "garbage" values
+
+np.arange(15) # arange is an array-valued version of the built-in Python range function
+''' Array creation functions
+array                            Convert input data (list, tuple, array, or other sequence type) to an ndarray either by inferring a dtype or explicitly specifying a dtype; copies the input data by default            
+asarray                        Convert input to ndarray, but do not copy if the input is already an ndarray
+arange                         Like the built-in range but returns an ndarray instead of a list
+ones, ones_like       Produce an array of all 1s with the given shape and dtype; ones_like takes another array and produces a ones array of the same shape and dtype
+zeros, zeros+_like  Like ones and ones_like but producing arrays of 0s instead
+empty, empty_like Create new arrays by allocating new memory, but do not populate with any values like ones and zeros
+full, full_like               Produce an array of the given shape and dtype with all values set to the indicated “fill value”; full_like takes another array and produces a filled array of the same shape and dtype
+eye, identity               Create a square N × N identity matrix (1s on the diagonal and 0s elsewhere)
+'''
+arr1 = np.array([1, 2, 3], dtype = np.float64)
+arr2 = np.array([1, 2, 3], dtype = np.int32)
+arr1.dtype
+arr2.dtype
+
+'''ndarrays 's Data Type
+The numerical dtypes are named the same way: a type name, like float or int , followed by a number indicating the number of bits per element.
+NumPy data Types table is rather rarely for using, so...
+'''
+-------------------------casting
+arr = np.array([1, 2, 3, 4, 5])
+arr.dtype
+float_arr = arr.astype(np.float64)
+float_arr.dtype
+
+arr = np.array([3.7, -1.2, -2.6, 0.5, 12.9, 10.1])
+int_arr = arr.astype(np.int32)
+
+numeric_strings = np.array(['1.25', '-9.6', '42'], dtype = np.string_)
+numeric_strings.astype(float)
+#********************It is important to be cautious when using the numpy.string_ type, as string data in NumPy is fixed size and may truncate input without warning. Pandas has more intuitive out-of-the-box behaviour on non-numeric data.
+
+
+int_array = np.arange(10)
+calibers = np.array([.22, .270, .357, .380, .44, .50], dtype=np.float64)
+int_array.astype(dtype(calibers))
+
+empty_uint32 = np.empty(8, dtype='u4')   #u4 is the shorthand of uint32
+empty_uint32
+
+arr = np.array([[1., 2., 3.], [4., 5., 6.]])
+arr
+arr * arr
+arr - arr
+1/arr
+arr ** 0.5
+#Comparisons between arrays of the same size yield boolean arrays:
+arr2 = np.array([[0., 4., 1.], [7., 2., 12.]])
+arr2
+arr2 > arr #this will produce a boolean matrix
+
+---------------------------------------------------------------------------------------------broadcasting
+'''
+Operations between differently sized arrays is called broadcasting
+'''
+-------------------------------------------------------------------------------------------------------------Basic Indexing and Slicking 
+arr = np.arange(10)
+arr
+arr[5]
+arr[5:8]
+arr[5:8] = 12
+arr
+
+#*****************the most important distinction from Python's built-in lists is that array slices are views on the original array. This means that the data is not copied.
+arr_slice  = arr[5:8]
+arr_slice
+arr_slice[1]  = 12334
+arr
+
+#*************The 'bare' slice[:] will assign to all values in an array
+arr[:] = 64
+arr
+
+#********************if you need a copy of a slice of an ndarray instead of a view
+arr[5:8].copy()#very important
+
+arr2d = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+arr2d[2]    #print out the third row.
+arr2d[0][2]
+#is equivalent with 
+arr2d[0, 2]
+
+arr3d = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
+arr3d
+arr3d[0]
+old_value = arr3d[0].copy()
+arr3d[0] = 42
+arr3d
+arr3d[0] = old_value
+arr3d
+
+#indexing with slices
+arr
+array([0, 1, 2, 3, 4, 64, 64, 64, 8, 9])
+arr[1:6]   #output is array([1, 2, 3, 4, 64]), left including except right side
+arr2d   #output is as following 
+array([[1, 2, 3],
+[4, 5, 6],
+[7, 8, 9]])
+
+arr2d[:2]
+'''output is 
+array([[1, 2, 3],
+[4, 5, 6]])'''
+
+#you can pass multiple slices just like you can pass multiple indexes
+arr2d[:2, 1:]
+'''output
+array([[2, 3], [5, 6]])
+'''
+#I can select the second row but only the first two columns like so
+arr2d[1, :2]    #output array([4, 5])
+array[:2, 2]     #output array([3, 6])
+arr2d[:, :1]       #output  array([[1], [4], [7]])
+arr2d[:2, 1:] = 0    #output array([[1, 0, 0], [4, 0, 0], [7, 8, 9]])
+
+----------------------------------------Boolean Indexing
+names = np.array(['Bob', 'Joe', 'Will', 'Bob', 'Will', 'Joe', 'Joe'])
+data = np.random.randn(7, 4)
+names == 'Bob'
+#out :array([ True, False, False, True, False, False, False], dtype=bool)
+data[names == 'Bob']
+#out array([[ 0.0929, 0.2817, 0.769, 1.2464],[ 1.669 , -0.4386, -0.5397, 0.477 ]])
+#The above boolean array must be of the same length as the array it's indexing
+
+data[name == 'Bob', 2:]
+#out array([[ 0.769 , 1.2464], [-0.5397, 0.477 ]])
+data[names == 'Bob', 3]
+#out array([ 1.2464, 0.477 ])
+names != 'Bob'
+data[~(names == 'Bob')]
+
+#the operator ~ can be useful when u wanna invert a general condition
+cond = names == 'Bob'
+data[~cond]
+
+mask = (names == 'Bob') | (names == 'Will')    #it can use & as well
+mask
+data[mask]
+
+#to set all of negative values in data to 0
+data[data < 0] = 0
+data
+
+#setting whole rows or columns using a one-dimentional boolean array is also easy:
+data[name!='Joe'] = 7
+data
+
+---------------------------------------------Fancy indexing
+#fancy indexing is a term adopted by NumPy to describe indexing using integer arrays
+arr = np.empty((8, 4))
+for i in range(8):
+	arr[i] = i
+
+arr[[4, 3, 0, 6]]
+'''result
+array([
+[ 4., 4., 4.,4.],
+[ 3., 3., 3.,3.],
+[ 0., 0., 0.,0.],
+[ 6., 6., 6.,6.]])
+'''
+arr[[-3, -5, -7]]
+
+arr = np.arange(32).reshape((8, 4))
+arr
+arr[[1, 5, 7, 2], [0, 3, 1, 2]]#out array([ 4, 23, 29, 10])
+
+#kind of different function to do that
+arr[[1, 5, 7, 2]][:[0, 3, 1, 2]]
+'''result
+array([[ 4, 7, 5, 6],
+[20, 23, 21, 22],
+[28, 31, 29, 30],
+[ 8, 11, 9, 10]])'''
+
+---------------------------------------------transposing arrays and swapping axes
+arr = np.arange(15).reshape((3, 5))
+arr
+arr.T   #transposing the array
+'''result
+array([[ 0, 5,10],
+[ 1, 6,11],
+[ 2, 7,12],
+[ 3, 8,13],
+[ 4, 9,14]])
+'''
+
+arr = np.random.randn(6, 3)
+arr 
+np.dot(arr.T, arr) #to computing the inner matrix product us np.dot
+
+arr = np.arange(16).reshape((2, 2, 4))
+arr
+'''Output
+array([[[ 0, 1, 2, 3],
+[ 4, 5, 6, 7]],
+[[ 8, 9, 10, 11],
+[12, 13, 14, 15]]])
+'''
+arr.transpose((1, 0, 2))
+'''output
+array([[[ 0, 1, 2, 3],
+[ 8, 9, 10, 11]],
+[[ 4, 5, 6, 7],
+[12, 13, 14, 15]]])
+'''
+
+arr.swapaxes(1, 2)
+'''output 
+array([[[ 0, 4],
+[ 1, 5],
+[ 2, 6],
+[ 3, 7]],
+[[ 8, 12],
+[ 9, 13],
+[10, 14],
+[11, 15]]])
+'''
+-------------------------------Universal function
+
+arr = np.arange(10)
+arr
+np.sqrt(arr)
+np.exp(arr)
+
+x = np.random.rand(8)
+y = np.random.rand(8)
+x
+y 
+np.maximum(x, y)   #find max value and compose to a new matrix
+
+arr = np.random.randn(7) * 5
+
+remainder, whole_part = np.modf(arr)
+remainder  #digital part
+whole_part #the integer part
+
+#Ufunction accept out argument that allows them to operate in-place on arrays:
+arr
+np.sqrt(arr)
+np.sqrt(arr, arr)
+
+points = np.arange(-5, 5, 0.01) #1000 equally spaced points
+xs, ys = np.meshgrid(points, points)
+ys
+
+#using natplotlib to create visualizations of this two-dimentional array
+import matplotlib.pyplot as plt 
+plt.imshow(z, cmap=plt.cm.gray); plt.colorbar()
+plt.title("Image plot of $\sqrt{x^2 + y^ 2}$ for a grid of values")
+
+---------------------------------------------------------------------Expressing conditional logic as array operations
+xarr = np.array([1.1, 1.2, 1.3, 1.4, 1.5])
+yarr = np.array([2.1, 2.2, 2.3, 2.4, 2.5])
+cond = np.array([True, False, True, True, False])
+
+result = [(x if c else y)
+					for x, y, z in zip(xarr, yarr, cond)]
+result
+'''The issue which will occur in above
+1. when it is encountered with the large arrays, it won't be very fast.(Interpreted Python code)
+2. it will not work with multimensional arrays
+'''
+result = np.where(cond, xarr, yarr)
+result
+#The second and third arguments to np.where don't need to be arrays, one or both of them can be scalars.
+arr = np.random.randn(4, 4)
+arr 
+arr > 0
+np.where(arr > 0, 2, -2)
+#or u can combined scalars and arrays when using np.
+np.where(arr > 0, 2, arr) #set only positive value to 2
+
+-----------------------------------Mathematical and Statistical method
+arr = np.random.randn(5, 4)
+arr 
+arr.mean()
+np.mean(arr)
+arr.sum()
+arr.mean(axis=1)   #axis is y,,, this will count the value on the x axis
+arr.sum(axis = 0)
+#arr.mean(1) means “compute mean across the columns” where arr.sum(0)means “compute sum down the rows.”
+
+arr = np.array([0, 1, 2, 3, 4, 5, 6, 7])
+arr.cumsum() #out array([ 0, 1, 3, 6, 10, 15, 21, 28])
+
+arr = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
+
+#0 vertical, 1 horizontal
+arr.cumsum(axis = 0)
+arr.cumprod(axis = 1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
